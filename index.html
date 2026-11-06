@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alibora · Console de renseignement</title>
+    <link rel="icon" type="image/png" href="assets/favicon-alibora.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Connexion -->
+    <main id="login" class="login">
+        <section class="login-intro">
+            <img class="login-logo" src="assets/logo-alibora-blanc.png" alt="Alibora">
+
+            <div class="login-pitch">
+                <p class="login-kicker"><span data-icon="phone"></span>Renseignement UAC</p>
+                <h1>La bonne réponse, avant la fin de l'appel.</h1>
+                <p>Les écoles, facultés et instituts de l'UAC tiennent leurs informations à jour. Les agents d'Alibora les retrouvent en quelques secondes pendant l'appel.</p>
+            </div>
+
+            <!-- Aperçu décoratif du produit -->
+            <div class="login-demo" aria-hidden="true">
+                <div class="demo-call">
+                    <span class="demo-icon"><span data-icon="phone"></span></span>
+                    <div><small>Appel en cours · 01:24</small><strong>« Quelles pièces pour m'inscrire à l'EPAC ? »</strong></div>
+                    <span class="demo-live"></span>
+                </div>
+                <div class="demo-search"><span data-icon="search"></span><span>pièces inscription epac</span></div>
+                <div class="demo-answer">
+                    <div class="demo-answer-head"><strong>EPAC · Pièces à fournir</strong><span class="badge badge-ok">À jour</span></div>
+                    <ul>
+                        <li><span data-icon="check"></span>Attestation du baccalauréat</li>
+                        <li><span data-icon="check"></span>Extrait d'acte de naissance</li>
+                        <li><span data-icon="check"></span>Deux photos d'identité</li>
+                    </ul>
+                </div>
+            </div>
+
+            <ul class="login-features">
+                <li><span class="login-feature-icon"><span data-icon="search"></span></span><span><strong>Recherche immédiate</strong>Écoles, filières, questions</span></li>
+                <li><span class="login-feature-icon"><span data-icon="doc"></span></span><span><strong>Fiches à jour</strong>Tenues par chaque école</span></li>
+                <li><span class="login-feature-icon"><span data-icon="mail"></span></span><span><strong>Messagerie</strong>Agents, équipe et écoles</span></li>
+            </ul>
+        </section>
+
+        <section class="login-side">
+            <div class="login-card">
+                <form id="login-form">
+                    <h2>Bienvenue</h2>
+                    <p class="login-sub">Connectez-vous à votre espace de travail.</p>
+
+                    <div class="role-cards" role="group" aria-label="Je me connecte en tant que">
+                        <label><input type="radio" name="login-role" value="agent" checked>
+                            <span class="role-icon"><span data-icon="phone"></span></span>
+                            <span><strong>Agent Alibora</strong><small>Je réponds aux appels</small></span></label>
+                        <label><input type="radio" name="login-role" value="ecole">
+                            <span class="role-icon"><span data-icon="book"></span></span>
+                            <span><strong>École de l'UAC</strong><small>Je mets à jour ma fiche</small></span></label>
+                    </div>
+
+                    <div id="login-school" class="field" hidden>
+                        <label for="login-etab">Mon établissement</label>
+                        <select id="login-etab"></select>
+                    </div>
+                    <div class="field">
+                        <label for="login-id">Identifiant</label>
+                        <div class="input-icon"><span data-icon="user"></span><input id="login-id" value="agent.demo" autocomplete="username"></div>
+                    </div>
+                    <div class="field">
+                        <label for="login-pass">Mot de passe</label>
+                        <div class="input-icon"><span data-icon="lock"></span>
+                            <input id="login-pass" type="password" value="demonstration" autocomplete="current-password">
+                            <button class="eye" id="toggle-pass" type="button" aria-pressed="false" aria-label="Afficher le mot de passe" title="Afficher le mot de passe"></button>
+                        </div>
+                    </div>
+                    <div class="login-options">
+                        <label class="check"><input type="checkbox">Rester connecté</label>
+                        <button class="link-btn" id="forgot-pass" type="button" aria-expanded="false" aria-controls="forgot-help">Mot de passe oublié ?</button>
+                    </div>
+                    <p id="forgot-help" class="forgot-help" hidden></p>
+                    <button class="btn btn-primary btn-wide login-submit" type="submit">Se connecter <span data-icon="arrow"></span></button>
+                    <p class="hint">Démonstration : cliquez simplement sur « Se connecter ».</p>
+                </form>
+            </div>
+            <footer class="login-footer">
+                <p class="login-slogan">Un monde de solutions technologiques, à portée de main</p>
+                <p>info@alibora.com · C/1348 Houéyiho, Cotonou, Bénin</p>
+            </footer>
+        </section>
+    </main>
+
+    <!-- Console -->
+    <div id="app" class="app" hidden>
+        <aside class="sidebar">
+            <div class="brand"><img src="assets/logo-alibora-blanc.png" alt="Alibora"><small id="brand-sub">Console de renseignement</small></div>
+            <nav id="main-nav" aria-label="Navigation principale"></nav>
+            <div class="agent">
+                <span class="avatar" id="user-initials">AD</span>
+                <div><strong id="user-name">Agent démo</strong>
+                    <label class="status-select" id="status-wrap"><span class="sr-only">Statut</span>
+                    <select id="agent-status"><option>Disponible</option><option>En pause</option></select></label></div>
+                <button id="logout" class="logout" type="button" title="Se déconnecter" aria-label="Se déconnecter"><span data-icon="logout"></span></button>
+            </div>
+        </aside>
+
+        <div class="workspace">
+            <header class="topbar">
+                <div class="search" id="search-box">
+                    <label for="global-search" class="sr-only">Rechercher une école, une filière ou une réponse</label>
+                    <span data-icon="search"></span>
+                    <input id="global-search" type="search" autocomplete="off" placeholder="Rechercher : EPAC, médecine, relevé de notes…">
+                    <kbd>Ctrl K</kbd>
+                    <div id="search-results" class="search-results" role="listbox" hidden></div>
+                </div>
+                <button id="simulate-call" class="btn btn-gold" type="button"><span data-icon="phone"></span>Simuler un appel</button>
+                <button id="theme-toggle" class="btn btn-ghost" type="button" aria-label="Changer de thème">Thème</button>
+            </header>
+
+            <div id="callbar" class="callbar" hidden>
+                <span class="pulse" aria-hidden="true"></span>
+                <strong id="callbar-number"></strong>
+                <span id="callbar-time" class="mono">00:00</span>
+            </div>
+
+            <div class="content-row">
+                <main id="view" class="view" tabindex="-1"></main>
+                <aside id="call-sheet" class="call-sheet" hidden></aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appel entrant -->
+    <div id="incoming" class="incoming" role="alertdialog" aria-labelledby="incoming-title" hidden></div>
+
+    <!-- Fenêtre : signaler une information -->
+    <dialog id="report-dialog">
+        <form id="report-form" method="dialog">
+            <h2>Signaler une information</h2>
+            <p id="report-context" class="muted"></p>
+            <label for="report-text">Qu'est-ce qui ne va pas ?</label>
+            <textarea id="report-text" rows="4" required placeholder="Exemple : un appelant indique que le numéro de la scolarité a changé."></textarea>
+            <div class="dialog-actions">
+                <button class="btn btn-ghost" type="button" id="report-cancel">Annuler</button>
+                <button class="btn btn-primary" type="submit" value="ok">Envoyer à l'école</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
